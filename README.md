@@ -1,7 +1,14 @@
-# Gnosis Chain Faucet DApp
+# **Gnosis Chain Faucet DApp**
 
-This is a decentralized application for claiming free xDAI tokens on the Gnosis Chain. The application provides a simple and user-friendly interface where users can connect their wallet, enter their wallet address, and claim xDAI.
+The **Gnosis Chain Faucet DApp** is a **Proof of Concept (PoC)** designed to allow users to claim free **xDAI tokens** on the **Gnosis Chain**. This project provides a simple and user-friendly interface where users can connect their wallet, enter their wallet address, and claim **xDAI** in just a few clicks.
 
-https://oheka.github.io/Gnosis_Faucet/
+---
 
-Contract address : 0x834b798ae5Fe39205D675912D7f9016eE112b961
+## 🌐 **Live Application**
+Access the DApp: [https://oheka.github.io/Gnosis_Faucet/](https://oheka.github.io/Gnosis_Faucet/)
+
+---
+
+## 📜 **Contract Information**
+- **Contract Address**: `0x834b798ae5Fe39205D675912D7f9016eE112b961`
+- **Network**: Gnosis Chain (formerly xDai Chain)
