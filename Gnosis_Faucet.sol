@@ -8,8 +8,8 @@ contract GnosisFaucet {
     // Mapping to track last claim time per address
     mapping(address => uint256) public lastClaimTime;
 
-    // Amount to be distributed per claim (0.001 xDAI)
-    uint256 public constant CLAIM_AMOUNT = 0.001 ether;
+    // Amount to be distributed per claim (0.1 xDAI)
+    uint256 public constant CLAIM_AMOUNT = 0.1 ether;
 
     // Minimum time between claims (24 hours in seconds)
     uint256 public constant CLAIM_INTERVAL = 1 days;
