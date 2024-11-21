@@ -93,13 +93,22 @@ const CONTRACT_ABI = [
 
 let web3;
 let contract;
+let isConnecting = false; // State to prevent multiple connection attempts
 
 // Function to connect the wallet
 async function connectWallet() {
     console.log("Attempting to connect wallet...");
+    if (isConnecting) {
+        console.log("Connection already in progress. Please wait.");
+        return;
+    }
+
     if (typeof window.ethereum !== "undefined") {
         console.log("MetaMask detected.");
         try {
+            isConnecting = true; // Lock the connection state while attempting
+            document.getElementById("connect-wallet").innerText = "Connecting...";
+
             // Initialize Web3
             web3 = new Web3(window.ethereum);
             console.log("Web3 initialized.");
@@ -127,10 +136,13 @@ async function connectWallet() {
             console.error("Error connecting wallet:", error);
             document.getElementById("response-message").innerText =
                 "Failed to connect wallet. Please try again.";
+        } finally {
+            isConnecting = false; // Unlock the connection state
+            document.getElementById("connect-wallet").innerText = "Connect Wallet";
         }
     } else {
-        alert("MetaMask is required. Please install it from https://metamask.io/");
         console.log("MetaMask not detected.");
+        alert("MetaMask is not installed. Please install it from https://metamask.io/");
     }
 }
 
@@ -145,7 +157,6 @@ async function claimTokens() {
     }
 
     try {
-        // Get connected wallet address
         const accounts = await web3.eth.getAccounts();
         console.log("Connected account:", accounts[0]);
 
