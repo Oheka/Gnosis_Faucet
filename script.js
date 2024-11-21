@@ -1,78 +1,39 @@
-// Address of the deployed smart contract
 const CONTRACT_ADDRESS = "0x834b798ae5Fe39205D675912D7f9016eE112b961";
-
-// Smart contract ABI (replace this placeholder with your actual ABI from Remix)
-const CONTRACT_ABI = [
-    {
-        "inputs": [],
-        "name": "claim",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "deposit",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
-        "name": "lastClaimTime",
-        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "stateMutability": "payable",
-        "type": "receive"
-    }
-];
+const CONTRACT_ABI = [ /* Replace with your actual ABI */ ];
 
 let web3;
 let contract;
 
+// Function to connect the wallet
 async function connectWallet() {
-    if (window.ethereum) {
+    if (typeof window.ethereum !== "undefined") {
         try {
             // Request wallet connection
             web3 = new Web3(window.ethereum);
             await window.ethereum.request({ method: "eth_requestAccounts" });
 
             const accounts = await web3.eth.getAccounts();
-            const walletAddressInput = document.getElementById("wallet-address");
-            walletAddressInput.value = accounts[0];
+            const walletAddress = accounts[0];
 
-            // Initialize the contract instance
+            // Display the connected wallet address
+            document.getElementById("wallet-address").value = walletAddress;
+
+            // Initialize the contract
             contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
             document.getElementById("response-message").innerText =
-                "Wallet connected successfully.";
+                "Wallet connected successfully: " + walletAddress;
         } catch (error) {
             console.error("Error connecting wallet:", error);
             document.getElementById("response-message").innerText =
-                "Failed to connect wallet.";
+                "Failed to connect wallet. Please try again.";
         }
     } else {
-        alert("MetaMask or a compatible wallet is required to use this faucet.");
+        alert("MetaMask is required. Please install it and reload the page.");
     }
 }
 
+// Function to claim xDAI
 async function claimTokens() {
     if (!contract) {
         document.getElementById("response-message").innerText =
