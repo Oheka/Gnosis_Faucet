@@ -91,42 +91,35 @@ const CONTRACT_ABI = [
     }
 ];
 
-let web3;
+let provider;
+let signer;
 let contract;
-let isConnecting = false; // State to prevent multiple connection attempts
 
 // Function to connect the wallet
 async function connectWallet() {
     console.log("Attempting to connect wallet...");
-    if (isConnecting) {
-        console.log("Connection already in progress. Please wait.");
-        return;
-    }
 
     if (typeof window.ethereum !== "undefined") {
         console.log("MetaMask detected.");
         try {
-            isConnecting = true; // Lock the connection state while attempting
-            document.getElementById("connect-wallet").innerText = "Connecting...";
-
-            // Initialize Web3
-            web3 = new Web3(window.ethereum);
-            console.log("Web3 initialized.");
-
-            // Request wallet connection
+            // Request access to MetaMask
             await window.ethereum.request({ method: "eth_requestAccounts" });
-            console.log("Wallet connection request sent.");
+            console.log("MetaMask connection request sent.");
 
-            // Get connected wallet address
-            const accounts = await web3.eth.getAccounts();
-            const walletAddress = accounts[0];
+            // Initialize Ethers.js provider and signer
+            provider = new ethers.providers.Web3Provider(window.ethereum);
+            signer = provider.getSigner();
+            console.log("Ethers.js provider and signer initialized.");
+
+            // Get the connected wallet address
+            const walletAddress = await signer.getAddress();
             console.log("Connected wallet address:", walletAddress);
 
-            // Display wallet address in the input field
+            // Display the wallet address in the input field
             document.getElementById("wallet-address").value = walletAddress;
 
             // Initialize the contract
-            contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+            contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
             console.log("Contract initialized successfully.");
 
             // Display success message
@@ -136,9 +129,6 @@ async function connectWallet() {
             console.error("Error connecting wallet:", error);
             document.getElementById("response-message").innerText =
                 "Failed to connect wallet. Please try again.";
-        } finally {
-            isConnecting = false; // Unlock the connection state
-            document.getElementById("connect-wallet").innerText = "Connect Wallet";
         }
     } else {
         console.log("MetaMask not detected.");
@@ -157,12 +147,13 @@ async function claimTokens() {
     }
 
     try {
-        const accounts = await web3.eth.getAccounts();
-        console.log("Connected account:", accounts[0]);
-
         // Call the claim function on the smart contract
-        await contract.methods.claim().send({ from: accounts[0] });
-        console.log("Claim transaction sent successfully.");
+        const transaction = await contract.claim();
+        console.log("Claim transaction sent. Waiting for confirmation...");
+
+        // Wait for the transaction to be mined
+        const receipt = await transaction.wait();
+        console.log("Transaction confirmed:", receipt);
 
         // Display success message
         document.getElementById("response-message").innerText =
