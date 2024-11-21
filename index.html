@@ -5,20 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gnosis Chain Faucet</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Load Ethers.js (browser-compatible version) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" defer></script>
-    <!-- Load custom JavaScript -->
-    <script src="scripts.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/ethers/dist/ethers.min.js"></script>
 </head>
 <body>
     <div class="main-container">
-        <!-- Header Section -->
         <header>
             <h1>Gnosis Faucet</h1>
             <p>Claim free xDAI directly to your wallet.</p>
         </header>
 
-        <!-- Faucet Section -->
         <section id="faucet-section">
             <button id="connect-wallet" class="wallet-button">Connect Wallet</button>
             <form id="faucet-form">
@@ -29,10 +24,11 @@
             <p id="response-message"></p>
         </section>
 
-        <!-- Footer -->
         <footer>
-            <p>&copy; 2024 Gnosis Faucet</p>
+            <p>&copy; 2024 Gnosis Faucet by Oheka</p>
         </footer>
     </div>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
