@@ -96,23 +96,29 @@ let contract;
 
 // Function to connect the wallet
 async function connectWallet() {
+    console.log("Attempting to connect wallet...");
     if (typeof window.ethereum !== "undefined") {
+        console.log("MetaMask detected.");
         try {
             // Initialize Web3
             web3 = new Web3(window.ethereum);
+            console.log("Web3 initialized.");
 
             // Request wallet connection
             await window.ethereum.request({ method: "eth_requestAccounts" });
+            console.log("Wallet connection request sent.");
 
             // Get connected wallet address
             const accounts = await web3.eth.getAccounts();
             const walletAddress = accounts[0];
+            console.log("Connected wallet address:", walletAddress);
 
             // Display wallet address in the input field
             document.getElementById("wallet-address").value = walletAddress;
 
             // Initialize the contract
             contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+            console.log("Contract initialized successfully.");
 
             // Display success message
             document.getElementById("response-message").innerText =
@@ -124,12 +130,15 @@ async function connectWallet() {
         }
     } else {
         alert("MetaMask is required. Please install it from https://metamask.io/");
+        console.log("MetaMask not detected.");
     }
 }
 
 // Function to claim xDAI
 async function claimTokens() {
+    console.log("Attempting to claim tokens...");
     if (!contract) {
+        console.log("Contract not initialized.");
         document.getElementById("response-message").innerText =
             "Please connect your wallet first.";
         return;
@@ -138,9 +147,11 @@ async function claimTokens() {
     try {
         // Get connected wallet address
         const accounts = await web3.eth.getAccounts();
+        console.log("Connected account:", accounts[0]);
 
         // Call the claim function on the smart contract
         await contract.methods.claim().send({ from: accounts[0] });
+        console.log("Claim transaction sent successfully.");
 
         // Display success message
         document.getElementById("response-message").innerText =
@@ -153,5 +164,12 @@ async function claimTokens() {
 }
 
 // Attach event listeners to buttons
-document.getElementById("connect-wallet").addEventListener("click", connectWallet);
-document.getElementById("claim-button").addEventListener("click", claimTokens);
+document.getElementById("connect-wallet").addEventListener("click", () => {
+    console.log("Connect Wallet button clicked.");
+    connectWallet();
+});
+
+document.getElementById("claim-button").addEventListener("click", () => {
+    console.log("Claim xDAI button clicked.");
+    claimTokens();
+});
