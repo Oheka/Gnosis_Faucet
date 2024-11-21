@@ -3,15 +3,32 @@ const CONTRACT_ADDRESS = "0x834b798ae5Fe39205D675912D7f9016eE112b961";
 const CONTRACT_ABI = [
     {
         "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [],
         "name": "CLAIM_AMOUNT",
-        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "CLAIM_INTERVAL",
-        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
@@ -30,16 +47,34 @@ const CONTRACT_ABI = [
         "type": "function"
     },
     {
-        "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
         "name": "lastClaimTime",
-        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
     {
         "inputs": [],
         "name": "owner",
-        "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
         "stateMutability": "view",
         "type": "function"
     },
@@ -59,55 +94,75 @@ const CONTRACT_ABI = [
 let web3;
 let contract;
 
-// Function to connect the wallet
+// Function to connect wallet
 async function connectWallet() {
+    console.log("Attempting to connect wallet...");
+
     if (typeof window.ethereum !== "undefined") {
-        console.log("MetaMask detected.");
         try {
+            // Request wallet connection
+            await window.ethereum.request({ method: "eth_requestAccounts" });
+            console.log("Wallet connection request sent.");
+
             // Initialize Web3 instance
             web3 = new Web3(window.ethereum);
-            await window.ethereum.request({ method: "eth_requestAccounts" });
+            console.log("Web3 initialized.");
 
+            // Get wallet address
             const accounts = await web3.eth.getAccounts();
             const walletAddress = accounts[0];
             console.log("Connected wallet address:", walletAddress);
 
-            // Display wallet address
+            // Display wallet address in input field
             document.getElementById("wallet-address").value = walletAddress;
 
-            // Initialize the contract
+            // Initialize contract
             contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-            console.log("Contract initialized successfully.");
+            console.log("Contract initialized:", contract);
 
-            document.getElementById("response-message").innerText = "Wallet connected successfully!";
+            document.getElementById("response-message").innerText =
+                "Wallet connected successfully!";
         } catch (error) {
             console.error("Error connecting wallet:", error);
-            document.getElementById("response-message").innerText = "Failed to connect wallet.";
+            document.getElementById("response-message").innerText =
+                "Failed to connect wallet. Please try again.";
         }
     } else {
-        alert("MetaMask is not installed. Please install it from https://metamask.io/");
+        alert("MetaMask is required. Please install it from https://metamask.io/");
+        console.log("MetaMask not detected.");
     }
 }
 
-// Function to claim tokens
+// Function to claim xDAI
 async function claimTokens() {
+    console.log("Attempting to claim tokens...");
+
     if (!contract) {
-        document.getElementById("response-message").innerText = "Please connect your wallet first.";
+        console.log("Contract is not initialized.");
+        document.getElementById("response-message").innerText =
+            "Please connect your wallet first.";
         return;
     }
 
     try {
+        // Get wallet address
         const accounts = await web3.eth.getAccounts();
-        const transaction = await contract.methods.claim().send({ from: accounts[0] });
+        const walletAddress = accounts[0];
+        console.log("Using wallet address:", walletAddress);
 
-        console.log("Claim transaction successful:", transaction);
-        document.getElementById("response-message").innerText = "Successfully claimed xDAI!";
+        // Call the claim function
+        await contract.methods.claim().send({ from: walletAddress });
+        console.log("Claim transaction sent successfully.");
+
+        document.getElementById("response-message").innerText =
+            "Successfully claimed 0.001 xDAI!";
     } catch (error) {
         console.error("Error claiming tokens:", error);
-        document.getElementById("response-message").innerText = `Error: ${error.message}`;
+        document.getElementById("response-message").innerText =
+            `Error: ${error.message}`;
     }
 }
 
-// Attach event listeners to buttons
+// Attach event listeners
 document.getElementById("connect-wallet").addEventListener("click", connectWallet);
 document.getElementById("claim-button").addEventListener("click", claimTokens);
