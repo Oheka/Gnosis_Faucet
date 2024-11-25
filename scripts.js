@@ -1,6 +1,6 @@
 const CONTRACT_ADDRESS = "0x4B1C320ac3cD4C70d0c308880FA10551931739Cc";
 const CONTRACT_ABI = [
-    // ABI du contrat
+    // ABI CONTRACT
 ];
 
 let web3;
