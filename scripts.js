@@ -1,6 +1,47 @@
-const CONTRACT_ADDRESS = "0x4B1C320ac3cD4C70d0c308880FA10551931739Cc";
+const CONTRACT_ADDRESS = "0x834b798ae5Fe39205D675912D7f9016eE112b961";
 const CONTRACT_ABI = [
-    // ABI CONTRACT
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "inputs": [],
+        "name": "CLAIM_AMOUNT",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "CLAIM_INTERVAL",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "claim",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "stateMutability": "payable",
+        "type": "receive"
+    }
 ];
 
 let web3;
@@ -19,34 +60,23 @@ async function connectWallet() {
         document.getElementById("wallet-address").value = walletAddress;
         contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
         document.getElementById("response-message").innerText = "Wallet connected successfully!";
-        document.getElementById("response-message").classList.add("success");
-        document.getElementById("claim-button").disabled = false;
     } catch (error) {
         document.getElementById("response-message").innerText = "Failed to connect wallet.";
-        document.getElementById("response-message").classList.add("error");
     }
 }
 
 async function claimTokens() {
     if (!contract) {
         document.getElementById("response-message").innerText = "Please connect your wallet first.";
-        document.getElementById("response-message").classList.add("error");
         return;
     }
-    const spinner = document.getElementById("loading-spinner");
-    spinner.classList.remove("hidden");
-
     try {
         const accounts = await web3.eth.getAccounts();
         const walletAddress = accounts[0];
         await contract.methods.claim().send({ from: walletAddress });
         document.getElementById("response-message").innerText = "Successfully claimed xDAI!";
-        document.getElementById("response-message").classList.add("success");
     } catch (error) {
         document.getElementById("response-message").innerText = `Error: ${error.message}`;
-        document.getElementById("response-message").classList.add("error");
-    } finally {
-        spinner.classList.add("hidden");
     }
 }
 
