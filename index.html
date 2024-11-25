@@ -3,32 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gnosis Chain Faucet</title>
+    <title>Gnosis Faucet</title>
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
     <script src="scripts.js" defer></script>
 </head>
 <body>
-    <div class="main-container">
-        <header>
+    <main class="container">
+        <header class="header">
             <h1>Gnosis Faucet</h1>
-            <p>Claim free xDAI directly to your wallet.</p>
+            <p>Claim free xDAI tokens directly to your wallet.</p>
         </header>
 
-        <section id="faucet-section">
-            <button id="connect-wallet" class="wallet-button">Connect Wallet</button>
-            <form id="faucet-form">
+        <section class="faucet-section">
+            <button id="connect-wallet" class="btn">Connect Wallet</button>
+
+            <div class="wallet-info">
                 <label for="wallet-address">Wallet Address</label>
-                <input type="text" id="wallet-address" placeholder="Your wallet address" readonly>
-                <button type="button" id="claim-button" class="claim-button">Claim xDAI</button>
-            </form>
-            <p id="response-message"></p>
+                <input type="text" id="wallet-address" placeholder="Connect your wallet" readonly>
+            </div>
+
+            <button id="claim-button" class="btn btn-primary" disabled>Claim xDAI</button>
+            <p id="response-message" class="response-message"></p>
         </section>
 
-        <footer>
-            <p>&copy; 2024 Gnosis Faucet by Oheka</p>
+        <footer class="footer">
+            <p>&copy; 2024 Gnosis Faucet | Built with ❤️ by Oheka</p>
         </footer>
-    </div>
+    </main>
 </body>
 </html>
-
