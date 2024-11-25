@@ -33,9 +33,6 @@ body {
 header h1 {
     font-size: 2.8rem;
     margin-bottom: 10px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
     background: linear-gradient(45deg, #00b3ff, #00d395);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -67,10 +64,6 @@ header p {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-}
-
-.wallet-button i {
-    margin-right: 10px;
 }
 
 .wallet-button:hover {
@@ -124,45 +117,23 @@ form input:focus {
     justify-content: center;
 }
 
-.claim-button i {
-    margin-right: 10px;
+.claim-button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
 }
 
-.claim-button:hover {
+.claim-button:hover:not(:disabled) {
     transform: translateY(-5px);
 }
 
-#response-message {
-    margin-top: 20px;
-    font-size: 1.1rem;
-    color: #333;
-}
+#loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #00d395;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 10
 
-#response-message.success {
-    color: #28a745;
-}
-
-#response-message.error {
-    color: #e3342f;
-}
-
-footer {
-    margin-top: 30px;
-    font-size: 0.9rem;
-    color: #555;
-}
-
-@media (max-width: 768px) {
-    .main-container {
-        padding: 30px;
-    }
-
-    header h1 {
-        font-size: 2.2rem;
-    }
-
-    .wallet-button, .claim-button {
-        font-size: 1rem;
-        padding: 12px 20px;
     }
 }
