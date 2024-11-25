@@ -1,6 +1,6 @@
 # **Gnosis Chain Faucet DApp**
 
-The **Gnosis Chain Faucet DApp** is a **Proof of Concept (PoC)** designed to allow users to claim free **xDAI tokens** on the **Gnosis Chain**. This project provides a simple and user-friendly interface where users can connect their wallet, enter their wallet address, and claim **xDAI** in just a few clicks.
+The Gnosis Chain Faucet DApp is a Proof of Concept designed to allow users to claim free xDAI tokens on the Gnosis Chain. This project provides a simple and user-friendly interface where users can connect their wallet, enter their wallet address, and claim xDAI in just a few clicks.
 
 ---
 
