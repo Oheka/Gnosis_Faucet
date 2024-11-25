@@ -50,18 +50,35 @@ let contract;
 document.addEventListener("DOMContentLoaded", () => {
     const connectWalletButton = document.getElementById("connect-wallet");
     const claimButton = document.getElementById("claim-button");
+    const responseMessage = document.getElementById("response-message");
 
-    if (connectWalletButton) {
-        connectWalletButton.addEventListener("click", connectWallet);
-    } else {
-        console.error("Connect Wallet button not found.");
+    if (!connectWalletButton) {
+        console.error("Connect Wallet button not found in the DOM.");
+        return;
     }
 
-    if (claimButton) {
-        claimButton.addEventListener("click", claimTokens);
-    } else {
-        console.error("Claim button not found.");
+    if (!claimButton) {
+        console.error("Claim button not found in the DOM.");
+        return;
     }
+
+    connectWalletButton.addEventListener("click", async () => {
+        try {
+            console.log("Connecting wallet...");
+            await connectWallet();
+        } catch (error) {
+            console.error("Error during wallet connection:", error);
+        }
+    });
+
+    claimButton.addEventListener("click", async () => {
+        try {
+            console.log("Attempting to claim tokens...");
+            await claimTokens();
+        } catch (error) {
+            console.error("Error during token claim:", error);
+        }
+    });
 });
 
 async function connectWallet() {
@@ -69,6 +86,7 @@ async function connectWallet() {
         alert("MetaMask or Brave Wallet not found. Please install MetaMask.");
         return;
     }
+
     try {
         console.log("Requesting wallet connection...");
         await window.ethereum.request({ method: "eth_requestAccounts" });
@@ -81,33 +99,48 @@ async function connectWallet() {
 
         contract = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
 
-        document.getElementById("response-message").innerText = "Wallet connected successfully!";
+        const responseMessage = document.getElementById("response-message");
+        if (responseMessage) {
+            responseMessage.innerText = "Wallet connected successfully!";
+        }
+
         console.log("Wallet connected:", walletAddress);
     } catch (error) {
         console.error("Error connecting wallet:", error);
-        document.getElementById("response-message").innerText = "Failed to connect wallet.";
+
+        const responseMessage = document.getElementById("response-message");
+        if (responseMessage) {
+            responseMessage.innerText = "Failed to connect wallet.";
+        }
     }
 }
 
 async function claimTokens() {
+    const responseMessage = document.getElementById("response-message");
     if (!contract) {
-        document.getElementById("response-message").innerText = "Please connect your wallet first.";
         console.error("Contract not initialized.");
+        if (responseMessage) {
+            responseMessage.innerText = "Please connect your wallet first.";
+        }
         return;
     }
+
     try {
-        console.log("Preparing to claim tokens...");
         const accounts = await web3.eth.getAccounts();
         const walletAddress = accounts[0];
 
         console.log("Sending transaction from:", walletAddress);
         await contract.methods.claim().send({ from: walletAddress });
 
-        document.getElementById("response-message").innerText = "Successfully claimed xDAI!";
+        if (responseMessage) {
+            responseMessage.innerText = "Successfully claimed xDAI!";
+        }
         console.log("Tokens claimed successfully.");
     } catch (error) {
         console.error("Error claiming tokens:", error);
-        document.getElementById("response-message").innerText = `Error: ${error.message}`;
+        if (responseMessage) {
+            responseMessage.innerText = `Error: ${error.message}`;
+        }
     }
 }
 
