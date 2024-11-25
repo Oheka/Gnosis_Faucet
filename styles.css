@@ -6,163 +6,116 @@
 }
 
 body {
-    background-color: #F0FFF4;
+    background-color: #f7faff;
     color: #333;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
 }
 
-.main-container {
-    text-align: center;
+/* Main Container */
+.container {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     width: 100%;
     max-width: 500px;
-    padding: 40px;
-    background-color: #FFFFFF;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    transition: box-shadow 0.3s ease;
+    text-align: center;
 }
 
-.main-container:hover {
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+/* Header */
+.header h1 {
+    font-size: 2rem;
+    color: #00b3ff;
+    margin-bottom: 0.5rem;
 }
 
-header h1 {
-    font-size: 2.8rem;
-    margin-bottom: 10px;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: linear-gradient(45deg, #00b3ff, #00d395);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.header p {
+    color: #666;
+    margin-bottom: 1.5rem;
 }
 
-header p {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    margin-bottom: 25px;
-    color: #555;
-}
-
-#faucet-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.wallet-button {
-    padding: 15px 25px;
-    background: linear-gradient(45deg, #00b3ff, #00d395);
-    color: #FFF;
-    border: none;
-    border-radius: 50px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    margin-bottom: 25px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.wallet-button i {
-    margin-right: 10px;
-}
-
-.wallet-button:hover {
-    transform: translateY(-5px);
-}
-
-form {
-    width: 100%;
-    background-color: #f4f7ff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    margin-bottom: 30px;
-}
-
-form label {
-    display: block;
-    margin-bottom: 8px;
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    margin: 0.5rem 0;
     font-size: 1rem;
-    color: #333;
-}
-
-form input {
-    width: 100%;
-    padding: 12px 15px;
-    margin-bottom: 20px;
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    background-color: #fff;
-    color: #333;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-form input:focus {
-    border-color: #00d395;
-    box-shadow: 0 0 10px rgba(0, 211, 149, 0.25);
-}
-
-.claim-button {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(45deg, #00b3ff, #00d395);
-    color: #FFF;
     border: none;
-    border-radius: 50px;
-    font-size: 1.2rem;
+    border-radius: 30px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.claim-button i {
-    margin-right: 10px;
+.btn-primary {
+    background: linear-gradient(45deg, #00b3ff, #00d395);
+    color: #ffffff;
 }
 
-.claim-button:hover {
-    transform: translateY(-5px);
+.btn-primary:disabled {
+    background: #ccc;
+    cursor: not-allowed;
 }
 
-#response-message {
-    margin-top: 20px;
-    font-size: 1.1rem;
+.btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Wallet Info */
+.wallet-info {
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+.wallet-info label {
+    display: block;
+    margin-bottom: 0.25rem;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+.wallet-info input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #f9f9f9;
+    font-size: 0.95rem;
+    color: #333;
+    cursor: not-allowed;
+}
+
+/* Response Message */
+.response-message {
+    margin-top: 1rem;
+    font-size: 0.95rem;
     color: #333;
 }
 
-#response-message.success {
+.response-message.success {
     color: #28a745;
 }
 
-#response-message.error {
+.response-message.error {
     color: #e3342f;
 }
 
-footer {
-    margin-top: 30px;
-    font-size: 0.9rem;
-    color: #555;
+/* Footer */
+.footer {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #999;
 }
 
-@media (max-width: 768px) {
-    .main-container {
-        padding: 30px;
+@media (max-width: 600px) {
+    .container {
+        padding: 1.5rem;
     }
 
-    header h1 {
-        font-size: 2.2rem;
-    }
-
-    .wallet-button, .claim-button {
-        font-size: 1rem;
-        padding: 12px 20px;
+    .header h1 {
+        font-size: 1.75rem;
     }
 }
