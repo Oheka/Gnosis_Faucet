@@ -19,7 +19,7 @@ body {
     text-align: center;
     width: 100%;
     max-width: 500px;
-    padding: 30px;
+    padding: 40px;
     background-color: #FFFFFF;
     border-radius: 20px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
@@ -30,10 +30,12 @@ body {
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
 }
 
-/* Header Styles */
 header h1 {
-    font-size: 2.4rem;
+    font-size: 2.8rem;
     margin-bottom: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     background: linear-gradient(45deg, #00b3ff, #00d395);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -42,11 +44,10 @@ header h1 {
 header p {
     font-size: 1.1rem;
     line-height: 1.5;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     color: #555;
 }
 
-/* Faucet Section */
 #faucet-section {
     display: flex;
     flex-direction: column;
@@ -54,15 +55,22 @@ header p {
 }
 
 .wallet-button {
-    padding: 12px 20px;
+    padding: 15px 25px;
     background: linear-gradient(45deg, #00b3ff, #00d395);
     color: #FFF;
     border: none;
     border-radius: 50px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: transform 0.3s ease;
-    margin-bottom: 20px;
+    transition: background-color 0.3s, transform 0.3s;
+    margin-bottom: 25px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wallet-button i {
+    margin-right: 10px;
 }
 
 .wallet-button:hover {
@@ -72,65 +80,62 @@ header p {
 form {
     width: 100%;
     background-color: #f4f7ff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 
 form label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     font-size: 1rem;
     color: #333;
-    text-align: left;
 }
 
 form input {
     width: 100%;
-    padding: 12px;
+    padding: 12px 15px;
     margin-bottom: 20px;
     border: 1px solid #d1d5db;
     border-radius: 8px;
     background-color: #fff;
     color: #333;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
-    font-size: 1rem;
 }
 
 form input:focus {
     border-color: #00d395;
-    box-shadow: 0 0 8px rgba(0, 211, 149, 0.25);
-    outline: none;
+    box-shadow: 0 0 10px rgba(0, 211, 149, 0.25);
 }
 
 .claim-button {
     width: 100%;
-    padding: 12px;
+    padding: 15px;
     background: linear-gradient(45deg, #00b3ff, #00d395);
     color: #FFF;
     border: none;
     border-radius: 50px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: background-color 0.3s, transform 0.3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.claim-button:disabled {
-    background: #cccccc;
-    cursor: not-allowed;
+.claim-button i {
+    margin-right: 10px;
 }
 
-.claim-button:hover:not(:disabled) {
+.claim-button:hover {
     transform: translateY(-5px);
 }
 
-/* Response Message */
 #response-message {
-    margin-top: 15px;
-    font-size: 1rem;
+    margin-top: 20px;
+    font-size: 1.1rem;
     color: #333;
-    text-align: center;
 }
 
 #response-message.success {
@@ -141,59 +146,23 @@ form input:focus {
     color: #e3342f;
 }
 
-/* Footer Styles */
 footer {
-    margin-top: 20px;
+    margin-top: 30px;
     font-size: 0.9rem;
     color: #555;
 }
 
-/* Responsive Design */
 @media (max-width: 768px) {
     .main-container {
-        padding: 20px;
+        padding: 30px;
     }
 
     header h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
     }
 
-    header p {
+    .wallet-button, .claim-button {
         font-size: 1rem;
-    }
-
-    .wallet-button, .claim-button {
-        font-size: 0.9rem;
-        padding: 10px 15px;
-    }
-
-    form input {
-        font-size: 0.9rem;
-        padding: 10px;
+        padding: 12px 20px;
     }
 }
-
-@media (max-width: 480px) {
-    header h1 {
-        font-size: 1.8rem;
-    }
-
-    .wallet-button, .claim-button {
-        font-size: 0.8rem;
-        padding: 8px 12px;
-    }
-
-    form {
-        padding: 15px;
-    }
-
-    form input {
-        font-size: 0.8rem;
-        padding: 8px;
-    }
-
-    footer {
-        font-size: 0.8rem;
-    }
-}
-
