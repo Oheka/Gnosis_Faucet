@@ -10,5 +10,5 @@ Access the DApp: [https://oheka.github.io/Gnosis_Faucet/](https://oheka.github.i
 ---
 
 ## 📜 **Contract Information**
-- **Contract Address**: `0x4B1C320ac3cD4C70d0c308880FA10551931739Cc`
+- **Contract Address**: `0x834b798ae5Fe39205D675912D7f9016eE112b961`
 - **Network**: Gnosis Chain (formerly xDai Chain)
