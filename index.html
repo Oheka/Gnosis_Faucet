@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gnosis Chain Faucet</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3/dist/web3.min.js"></script>
+    <script src="scripts.js" defer></script>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <h1>Gnosis Faucet</h1>
+            <p>Claim free xDAI directly to your wallet.</p>
+        </header>
+        <section id="faucet-section">
+            <button id="connect-wallet" class="wallet-button">Connect Wallet</button>
+            <form id="faucet-form">
+                <label for="wallet-address">Wallet Address</label>
+                <input type="text" id="wallet-address" placeholder="Your wallet address" readonly>
+                <button type="button" id="claim-button" class="claim-button" disabled>Claim xDAI</button>
+            </form>
+            <p id="response-message"></p>
+        </section>
+        <footer>
+            <p>Powered by <a href="https://www.gnosis.io/" target="_blank" style="color: #a8e063; text-decoration: none;">Gnosis</a> - Developed by Oheka</p>
+        </footer>
+    </div>
+</body>
+</html>
