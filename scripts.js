@@ -64,4 +64,3 @@ function displayMessage(message, type) {
     responseMessage.textContent = message;
     responseMessage.className = type === "success" ? "success" : "error";
 }
-    
