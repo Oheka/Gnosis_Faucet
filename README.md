@@ -5,7 +5,7 @@ The Gnosis Chain Faucet DApp is a Proof of Concept designed to allow users to cl
 ---
 
 ## 🌐 **Live Application**
-Access the DApp: [(http://gnofaucet.com/))
+Access the DApp: [(http://gnofaucet.com)
 
 ---
 
