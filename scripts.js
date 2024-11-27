@@ -50,7 +50,11 @@ async function claimTokens() {
             displayMessage("Successfully claimed xDAI!", "success");
         }
     } catch (error) {
-        const errorMsg = error.message.includes("already claimed") ? "You have already claimed tokens. Please wait for the next interval." : error.message.includes("empty") ? "Faucet is currently empty. Please try again later." : "An error occurred while claiming tokens.";
+        const errorMsg = error.message.includes("already claimed")
+            ? "You have already claimed tokens. Please wait for the next interval."
+            : error.message.includes("empty")
+            ? "Faucet is currently empty. Please try again later."
+            : "An error occurred while claiming tokens.";
         displayMessage(errorMsg, "error");
     }
 }
@@ -59,3 +63,5 @@ function displayMessage(message, type) {
     const responseMessage = document.getElementById("response-message");
     responseMessage.textContent = message;
     responseMessage.className = type === "success" ? "success" : "error";
+}
+    
